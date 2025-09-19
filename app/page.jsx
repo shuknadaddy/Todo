@@ -2,10 +2,27 @@
 import { useState } from "react";
 import { Button } from "./components/Button";
 export default function Home() {
+  // States
   const [tasks, setTasks] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [filter, setFilter] = useState("all");
   const [id, setId] = useState(1);
+  const [img, setImg] = useState(
+    "https://i.pinimg.com/736x/0e/42/f9/0e42f90a9cb83552aab3b0f89dfaffd2.jpg"
+  );
+  const [number, setNumber] = useState(10);
+  function setImgExecuter(link) {
+    setImg(link);
+  }
+  // //
+  //   // delguur yvah zaavar
+  //   function delguurYvah(mungu) {
+  //     delguurluugeealhana();
+  //     delguurluuorno();
+  //     hudaldajavna(mungu);
+  //   }
+  //   delguurYvah(10000)true
+  // //
   function handleChange(e) {
     setInputValue(e.target.value);
     console.log("current inputVal: " + inputValue);
@@ -35,12 +52,14 @@ export default function Home() {
   }
 
   const barsaa = (id) => {
+    console.log(tasks);
     setTasks(
       tasks.map((task) =>
         task.id === id ? { ...task, completed: !task.completed } : task
       )
     );
   };
+
   const clearCompleted = () => {
     const clear = tasks.filter((task) => !task.completed);
     setTasks(clear);
@@ -67,7 +86,7 @@ export default function Home() {
 
   return (
     <div className="w-[377px] h-fit bg-black flex flex-col gap-5 p-5">
-      <p className="flex justify-center text-2xl">To-Do list</p>
+      <p className="flex justify-center text-2xl text-red-500">To-Do list</p>
       <div className="flex items-center gap-2">
         <div className="flex gap-2 items-center">
           <input
@@ -87,7 +106,11 @@ export default function Home() {
           </button>
         </div>
       </div>
-      <Button filter={filter} setFilter={setFilter}></Button>
+      <Button
+        filter={filter}
+        setFilter={setFilter}
+        setImgExecuti={(imgLink) => setImgExecuter(imgLink)}
+      ></Button>
       {tasks.length === 0 ? (
         <p className="flex justify-center pt-10 text-amber-300">
           No tasks yet. Add one above!
@@ -147,7 +170,7 @@ export default function Home() {
       </div>
 
       <div className="flex justify-center gap-2">
-        <p>Powered by </p>
+        <p className="text-amber-400">Powered by </p>
         <a
           href="https://www.youtube.com/watch?v=p0kCE0cFXw4     "
           target="_blank"
@@ -156,11 +179,7 @@ export default function Home() {
           Pinecone Academy
         </a>
       </div>
-      <img
-        src="https://i.pinimg.com/736x/0e/42/f9/0e42f90a9cb83552aab3b0f89dfaffd2.jpg"
-        alt="dsadsa"
-        className="w-[500px] h-[500px] bg-contain"
-      />
+      <img src={img} alt="dsadsa" className="w-[500px] h-[500px] bg-contain" />
     </div>
   );
 }
